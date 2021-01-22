@@ -4,7 +4,7 @@
     <div>Hello</div>
     <div>{{ $page.props.foo }}</div>
     <div>{{ message }}</div>
-    <a :href="route('welcome')">Welcome</a>
+    <inertia-link :href="$route('welcome')">Welcome</inertia-link>
   </div>
 </template>
 <script>

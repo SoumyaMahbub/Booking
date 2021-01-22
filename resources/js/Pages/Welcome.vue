@@ -4,15 +4,15 @@
     <div>Hello</div>
     <div>{{ $page.props.foo }}</div>
     <div>{{ message }}</div>
-    <a :href="route('home')">Home</a>
+    <inertia-link :href="$route('home')">Home</inertia-link>
   </div>
 </template>
 <script>
 export default {
   data() {
-      return {
-        message: 'this is a message'
-      }
-    },
+    return {
+      message: "this is a message",
+    };
+  },
 };
 </script>
