@@ -11,6 +11,8 @@ import { InertiaProgress } from '@inertiajs/progress'
 
 const el = document.getElementById('app')
 
+const axios = require('axios').default;
+
 const app = createApp({
   render: () => h(App, {
     initialPage: JSON.parse(el.dataset.page),
