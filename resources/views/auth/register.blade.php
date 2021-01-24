@@ -13,31 +13,47 @@
     <h1 class="text-center">Register</h1>
 </div>
 <div class="card-body row justify-content-center">
-    <form method="POST" class="" action="{{route('register')}}">
+    <form method="POST" class="" action="{{route('register')}}" novalidate>
+        @csrf
         <div class="form-group">
             <div>
                 <label for="name">Name</label>
                 <div>
-                    <input id="name" class="" type="text" name="name" :value="old('name')" required autofocus autocomplete="name">
+                    <input id="name" class="form-control @error('name') is-invalid @enderror" type="text" name="name" :value="{{ old('name') }}" autofocus autocomplete="name">
+                    @error('name')
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
             </div>
             <div class="mt-3">
                 <label for="email" class="">E-mail</label>
                 <div class="">
-                    <input id="email" class="" type="email" name="email" :value="old('email')" required autofocus />
+                    <input id="email" class="form-control @error('email') is-invalid @enderror" type="email" name="email" :value="{{ old('email') }}" autofocus />
+                    @error('email')
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
             </div>
 
             <div class="mt-3">
                 <label for="password">Password</label>
                 <div>
-                    <input id="password" class="" type="password" name="password" required autocomplete="current-password" />
+                    <input id="password" class="form-control @error('password') is-invalid @enderror" type="password" name="password" autocomplete="current-password" />
+                    @error('password')
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
             </div>
             <div class="mt-3">
                 <label for="password_confirmation">Confirm Password</label>
                 <div>
-                    <input id="password_confirmation" class="" type="password" name="password_confirmation" required autocomplete="new-password" />
+                    <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" autocomplete="new-password" />
                 </div>
             </div>
         </div>

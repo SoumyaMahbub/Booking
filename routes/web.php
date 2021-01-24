@@ -14,11 +14,14 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('welcome');
-
-
-Route::get('/home', function () {
-    return Inertia::render('Home', ['foo' => 'bar']);
+Route::get('/', function() {
+    return Inertia::render('Home');
 })->name('home');
+
+Route::get('/about', function () {
+    return Inertia::render('About');
+})->name('about');
+
+Route::get('/hotels', function () {
+    return Inertia::render('Hotels');
+})->name('hotels');

@@ -1,6 +1,22 @@
 body{
     font-family: 'Catamaran', sans-serif;
+    letter-spacing: 1px;
 }
 h1 {
     margin-bottom: 0;
+}
+.navbar-brand {
+    font-size: 30px;
+    margin: 0;
+}
+.active {
+    color: rgba(255,255,255,.75) !important;
+}
+#search-bar {
+    width: 330px;
+}
+#logout {
+    background: none;
+    border: none;
+    padding: 0;
 }

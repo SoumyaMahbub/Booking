@@ -3,7 +3,7 @@ window._ = require('lodash');
 // Animate CSS
 window.Popper = require('@popperjs/core').default;
 window.$ = window.jQuery = require('jquery');
-window.animate = require('animate.css');
+// window.animate = require('animate.css');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

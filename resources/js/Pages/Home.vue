@@ -1,11 +1,17 @@
 <template>
-  <div>
-    <h1>Home</h1>
-    <inertia-link :href="$route('welcome')">Welcome</inertia-link>
-  </div>
+    <navbar></navbar>
+    <h1>{{ username }}</h1>
 </template>
 <script>
+import Navbar from './Layouts/Navbar.vue';
 export default {
-
-}
+  components: {
+    Navbar
+  },
+  data: function () {
+    return {
+      
+    };
+  },
+};
 </script>
