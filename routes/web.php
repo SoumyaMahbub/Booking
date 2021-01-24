@@ -22,6 +22,8 @@ Route::get('/about', function () {
     return Inertia::render('About');
 })->name('about');
 
-Route::get('/hotels', function () {
-    return Inertia::render('Hotels');
-})->name('hotels');
+// Route::get('/hotels', function () {
+//     return Inertia::render('Hotels');
+// })->name('hotels');
+
+Route::resource('hotel', 'App\Http\Controllers\HotelController');

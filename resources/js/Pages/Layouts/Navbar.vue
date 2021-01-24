@@ -13,8 +13,8 @@
       <li class="nav-item mx-2">
         <inertia-link
           class="nav-link text-light"
-          :class="{ active: currentUrl == $route('hotels') }"
-          :href="$route('hotels')"
+          :class="{ active: currentUrl == $route('hotel.index') }"
+          :href="$route('hotel.index')"
           >HOTELS</inertia-link
         >
       </li>

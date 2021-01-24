@@ -2,6 +2,7 @@
 
     <navbar :isHome="isHome" :isHotels="isHotels" :isAbout="isAbout"></navbar>
 
+
 </template>
 <script>
 import Navbar from "./Layouts/Navbar.vue";
