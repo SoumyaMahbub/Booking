@@ -16,7 +16,7 @@ class HotelController extends Controller
     public function index()
     {
         $hotels = Hotel::all();
-        return Inertia::render('Hotels', ['hotels' => $hotels]);
+        return Inertia::render('Hotel/Index', ['hotels' => $hotels]);
     }
 
     /**
@@ -48,7 +48,7 @@ class HotelController extends Controller
      */
     public function show(Hotel $hotel)
     {
-        //
+        return Inertia::render('Hotel/Show', ['hotel' => $hotel]);
     }
 
     /**
@@ -59,7 +59,7 @@ class HotelController extends Controller
      */
     public function edit(Hotel $hotel)
     {
-        //
+        return Inertia::render('Hotel/Edit', ['hotel' => $hotel]);
     }
 
     /**

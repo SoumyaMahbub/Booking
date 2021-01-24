@@ -1,6 +1,6 @@
 <template>
 
-    <navbar :isHome="isHome" :isHotels="isHotels" :isAbout="isAbout"></navbar>
+    <navbar></navbar>
 
 </template>
 <script>
@@ -11,9 +11,6 @@ export default {
   },
   data: function () {
     return {
-      isHome: false,
-      isHotels: false,
-      isAbout: true,
     };
   }
 }

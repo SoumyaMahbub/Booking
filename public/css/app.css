@@ -14096,6 +14096,19 @@ h1 {
   color: rgba(255, 255, 255, 0.75) !important;
 }
 
+.hotel-li {
+  margin: 0;
+}
+
+.hotel-header {
+  font-size: 30px;
+  margin-bottom: 0;
+}
+
+.hotel-desc {
+  margin-bottom: 0;
+}
+
 #search-bar {
   width: 330px;
 }
