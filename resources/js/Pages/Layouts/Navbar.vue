@@ -27,31 +27,42 @@
         >
       </li>
     </ul>
-    <div class="nav-item dropdown" v-if="$page.props.user">
-      <a
-        class="nav-link dropdown-toggle text-light"
-        href="#"
-        id="navbarDropdownMenuLink"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
+    <div class="d-flex align-items-center" v-if="$page.props.user">
+      <inertia-link
+        :href="$route('hotel.create')"
+        class="btn btn-outline-success"
+        ><i class="fas fa-plus-circle align-middle"></i> Create Hotel</inertia-link
       >
-        {{ $page.props.user.name }}
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="#">Profile</a>
-        <a class="dropdown-item" href="#">Booked Hotels</a>
-        <a class="dropdown-item" href="#">
-          <form method="POST" @submit.prevent="logout">
-            <button id="logout" type="submit">Log out</button>
-          </form>
+      <div class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle text-light"
+          href="#"
+          id="navbarDropdownMenuLink"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          {{ $page.props.user.name }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Profile</a>
+          <a class="dropdown-item" href="#">Booked Hotels</a>
+          <a class="dropdown-item" href="#">
+            <form method="POST" @submit.prevent="logout">
+              <button id="logout" type="submit">Log out</button>
+            </form>
           </a>
+        </div>
       </div>
     </div>
     <div v-else>
       <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link text-light" :href="$route('login')">LOGIN</a></li>
-        <li class="nav-item"><a class="nav-link text-light" :href="$route('register')">REGISTER</a></li>
+        <li class="nav-item">
+          <a class="nav-link text-light" :href="$route('login')">LOGIN</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" :href="$route('register')">REGISTER</a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -61,7 +72,7 @@ export default {
   name: "navbar",
   data: function () {
     return {
-      currentUrl: window.location.href.replace(/\/$/, "")
+      currentUrl: window.location.href.replace(/\/$/, ""),
     };
   },
   mounted() {
@@ -71,6 +82,6 @@ export default {
     logout() {
       this.$inertia.post(route("logout"));
     },
-  }
+  },
 };
 </script>

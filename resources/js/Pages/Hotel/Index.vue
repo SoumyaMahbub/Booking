@@ -10,15 +10,29 @@
         :key="hotel.id"
       >
         <div>
-          <inertia-link :href="$route('hotel.show', hotel)" class="text-white hotel-header">{{ hotel.name }}</inertia-link>
+          <inertia-link
+            :href="$route('hotel.show', hotel)"
+            class="text-white hotel-header"
+            >{{ hotel.name }}</inertia-link
+          >
           <p class="hotel-desc">{{ hotel.description }}</p>
         </div>
         <div>
-          <inertia-link :href="$route('hotel.edit', hotel)" class="btn btn-outline-light mx-2">Edit</inertia-link>
-          <button class="btn btn-outline-danger">Delete</button>
+          <inertia-link
+            :href="$route('hotel.edit', hotel)"
+            class="btn btn-outline-light mx-2"
+            >Edit</inertia-link
+          >
+          <form
+            class="d-inline"
+            @submit.prevent="destroy(hotel)"
+            method="POST"
+          >
+            <button type="submit" class="btn btn-outline-danger">Delete</button>
+          </form>
         </div>
       </li>
-      </ul>
+    </ul>
   </div>
 </template>
 <script>
@@ -35,7 +49,9 @@ export default {
     };
   },
   methods: {
-    
-  }
+    destroy(object) {
+		this.$inertia.delete(route('hotel.destroy', object));
+	},
+  },
 };
 </script>

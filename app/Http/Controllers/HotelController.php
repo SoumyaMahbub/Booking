@@ -26,7 +26,7 @@ class HotelController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Hotel/Create');
     }
 
     /**
@@ -37,7 +37,14 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Hotel::create([
+            'name'=> $request->name,
+            'description'=> $request->description
+        ]);
+
+        return redirect()
+        ->route('hotel.index')
+        ->with('message_succes', 'A hotel was created successfully');
     }
 
     /**
@@ -82,6 +89,8 @@ class HotelController extends Controller
      */
     public function destroy(Hotel $hotel)
     {
-        //
+        $oldName = $hotel->name;
+        $hotel->delete();
+        return redirect()->route('hotel.index');
     }
 }
