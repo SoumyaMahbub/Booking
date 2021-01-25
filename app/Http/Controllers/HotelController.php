@@ -26,7 +26,19 @@ class HotelController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Hotel/Create');
+        return Inertia::render('Hotel/Save', ['hotel' => null]);
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Hotel  $hotel
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Hotel $hotel)
+    {
+        return Inertia::render('Hotel/Save', ['hotel' => $hotel]);
     }
 
     /**
@@ -37,14 +49,21 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+        ]);
+
         Hotel::create([
             'name'=> $request->name,
             'description'=> $request->description
         ]);
 
-        return redirect()
-        ->route('hotel.index')
-        ->with('message_succes', 'A hotel was created successfully');
+        return redirect()->route('hotel.index')->with(
+            [
+            'message' => 'A hotel was created successfully'
+            ]
+        );
     }
 
     /**
@@ -59,17 +78,6 @@ class HotelController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Hotel  $hotel
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Hotel $hotel)
-    {
-        return Inertia::render('Hotel/Edit', ['hotel' => $hotel]);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -78,7 +86,22 @@ class HotelController extends Controller
      */
     public function update(Request $request, Hotel $hotel)
     {
-        //
+        $oldName = $hotel->name;
+
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+        ]);
+        
+        $hotel->name = $request->name;
+        $hotel->description = $request->description;
+        $hotel->save();
+
+        return redirect()->route('hotel.index')->with(
+            [
+                'message' => $oldName . ' was updated successfully'
+            ]
+        );
     }
 
     /**

@@ -1,7 +1,14 @@
 <template>
   <navbar :isHome="isHome" :isHotels="isHotels" :isAbout="isAbout"></navbar>
   <div class="pt-5"></div>
-  <div class="w-75 mx-auto card bg-dark text-white">
+  <div class="container">
+     <div class="alert alert-success animate__animated animate__fadeIn" role="alert"  v-if="$page.props.flash.message">
+      {{ $page.props.flash.message }}
+    </div>
+  </div>
+  <div
+    class="container card bg-dark text-white animate__animated animate__fadeInUp"
+  >
     <div class="card-header text-center border-white">Hotels</div>
     <ul class="list-group list-group-flush">
       <li
@@ -23,11 +30,7 @@
             class="btn btn-outline-light mx-2"
             >Edit</inertia-link
           >
-          <form
-            class="d-inline"
-            @submit.prevent="destroy(hotel)"
-            method="POST"
-          >
+          <form class="d-inline" @submit.prevent="destroy(hotel)" method="POST">
             <button type="submit" class="btn btn-outline-danger">Delete</button>
           </form>
         </div>
@@ -50,8 +53,8 @@ export default {
   },
   methods: {
     destroy(object) {
-		this.$inertia.delete(route('hotel.destroy', object));
-	},
+      this.$inertia.delete(route("hotel.destroy", object));
+    },
   },
 };
 </script>
