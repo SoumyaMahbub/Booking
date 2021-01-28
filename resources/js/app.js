@@ -5,11 +5,12 @@ require('./bootstrap');
 |----------------------------------------------------------------
 */
 
-import { createApp, h } from 'vue'
-import { App, plugin } from '@inertiajs/inertia-vue3'
-import { InertiaProgress } from '@inertiajs/progress'
+import { createApp, h } from 'vue';
+import { App, plugin } from '@inertiajs/inertia-vue3';
+import { InertiaProgress } from '@inertiajs/progress';
 
-const el = document.getElementById('app')
+
+const el = document.getElementById('app');
 
 const axios = require('axios').default;
 
@@ -18,8 +19,10 @@ const app = createApp({
     initialPage: JSON.parse(el.dataset.page),
     resolveComponent: name => require(`./Pages/${name}`).default,
   })
-})
-app.use(plugin).mount(el)
-app.config.globalProperties.$route = route
+});
+app.use(plugin)
+  .mount(el);
+app.config.globalProperties.$route = route;
+app.config.devtools = true;
 
-InertiaProgress.init()
+InertiaProgress.init();

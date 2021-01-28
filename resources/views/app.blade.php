@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" amp>
 
 <head>
   <meta charset="utf-8" />
@@ -8,6 +8,7 @@
   <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
   @routes
   <script src="{{ mix('/js/app.js') }}" defer></script>
+  <title>Booking</title>
 </head>
 
 <body>

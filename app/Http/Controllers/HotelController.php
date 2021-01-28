@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Intervention\Image\Facades\Image;
 
 class HotelController extends Controller
 {
@@ -49,15 +50,22 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
+            'image' => 'required|sometimes|image'
         ]);
 
-        Hotel::create([
+        $hotel = Hotel::create([
             'name'=> $request->name,
             'description'=> $request->description
         ]);
+        $hotel->save();
+
+        if ($request->image) {
+            $this->saveImages($request->image, $hotel->id);
+        }
 
         return redirect()->route('hotel.index')->with(
             [
@@ -86,13 +94,20 @@ class HotelController extends Controller
      */
     public function update(Request $request, Hotel $hotel)
     {
+
+        // dd($request);
         $oldName = $hotel->name;
 
         $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
+            'image' => 'nullable|sometimes|image'
         ]);
         
+        if ($request->image){
+            $this->saveImages($request->image, $hotel->id);
+        }
+
         $hotel->name = $request->name;
         $hotel->description = $request->description;
         $hotel->save();
@@ -115,5 +130,26 @@ class HotelController extends Controller
         $oldName = $hotel->name;
         $hotel->delete();
         return redirect()->route('hotel.index');
+    }
+
+    public function saveImages($imageInput, $hotel_id){
+        $image = Image::make($imageInput);
+            if($image->width() > $image->height()){
+                $image->widen(1200)
+                    ->save(public_path(). '/img/hotels/' . $hotel_id . "_large.jpg")
+                    ->widen(400)->pixelate(12)
+                    ->save(public_path(). '/img/hotels/' . $hotel_id . "_pixalated.jpg");
+                $image = Image::make($imageInput);
+                $image->widen(60)
+                    ->save(public_path(). '/img/hotels/' . $hotel_id . "_thumb.jpg");
+            } else {
+                $image->heighten(900)
+                    ->save(public_path(). '/img/hotels/' . $hotel_id . "_large.jpg")
+                    ->heighten(400)->pixelate(12)
+                    ->save(public_path(). '/img/hotels/' . $hotel_id . "_pixalated.jpg");
+                $image = Image::make($imageInput);
+                $image->heighten(60)
+                    ->save(public_path(). '/img/hotels/' . $hotel_id . "_thumb.jpg");
+            }
     }
 }

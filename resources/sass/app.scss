@@ -7,9 +7,6 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-// Custom CSS
-@import 'custom';
-
 // Animate CSS
 @import "~animate.css/animate.css";
 
@@ -17,4 +14,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@300&display=swap');
 
 //Font Awesome
-@import '@fortawesome/fontawesome-free/css/all.css'
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+// Custom CSS
+@import 'custom';
