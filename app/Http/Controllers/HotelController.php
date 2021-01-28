@@ -80,8 +80,11 @@ class HotelController extends Controller
      * @param  \App\Models\Hotel  $hotel
      * @return \Illuminate\Http\Response
      */
-    public function show(Hotel $hotel)
+    public function show($id)
     {
+        $hotel = Hotel::with('user')->where('id', $id)->first();
+        $hotel->view_count = $hotel->view_count + 1;
+        $hotel->save();
         return Inertia::render('Hotel/Show', ['hotel' => $hotel]);
     }
 
@@ -137,20 +140,20 @@ class HotelController extends Controller
         $image = Image::make($imageInput);
         if ($image->width() > $image->height()) {
             $image->widen(1200)
-                ->save(storage_path('app/public/images/' . $hotel_id . "_large.jpg"))
+                ->save(storage_path('app/public/images/hotels/' . $hotel_id . "_large.jpg"))
                 ->widen(400)->pixelate(12)
-                ->save(storage_path('app/public/images/' . $hotel_id . "_pixalated.jpg"));
+                ->save(storage_path('app/public/images/hotels/' . $hotel_id . "_pixalated.jpg"));
             $image = Image::make($imageInput);
             $image->widen(60)
-                ->save(storage_path('app/public/images/' . $hotel_id . "_thumb.jpg"));
+                ->save(storage_path('app/public/images/hotels/' . $hotel_id . "_thumb.jpg"));
         } else {
             $image->heighten(900)
-                ->save(storage_path('app/public/images/' . $hotel_id . "_large.jpg"))
+                ->save(storage_path('app/public/images/hotels/' . $hotel_id . "_large.jpg"))
                 ->heighten(400)->pixelate(12)
-                ->save(storage_path('app/public/images/' . $hotel_id . "_pixalated.jpg"));
+                ->save(storage_path('app/public/images/hotels/' . $hotel_id . "_pixalated.jpg"));
             $image = Image::make($imageInput);
             $image->heighten(60)
-                ->save(storage_path('app/public/images/' . $hotel_id . "_thumb.jpg"));
+                ->save(storage_path('app/public/images/hotels/' . $hotel_id . "_thumb.jpg"));
         }
     }
 }

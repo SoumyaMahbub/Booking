@@ -17,6 +17,7 @@ class CreateHotelsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->integer('view_count')->default(0);
             $table->timestamps();
         });
     }
