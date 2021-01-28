@@ -58,8 +58,8 @@ class HotelController extends Controller
         ]);
 
         $hotel = Hotel::create([
-            'name'=> $request->name,
-            'description'=> $request->description
+            'name' => $request->name,
+            'description' => $request->description
         ]);
         $hotel->save();
 
@@ -69,7 +69,7 @@ class HotelController extends Controller
 
         return redirect()->route('hotel.index')->with(
             [
-            'message' => 'A hotel was created successfully'
+                'message' => 'A hotel was created successfully'
             ]
         );
     }
@@ -103,8 +103,8 @@ class HotelController extends Controller
             'description' => 'required',
             'image' => 'nullable|sometimes|image'
         ]);
-        
-        if ($request->image){
+
+        if ($request->image) {
             $this->saveImages($request->image, $hotel->id);
         }
 
@@ -132,24 +132,25 @@ class HotelController extends Controller
         return redirect()->route('hotel.index');
     }
 
-    public function saveImages($imageInput, $hotel_id){
+    public function saveImages($imageInput, $hotel_id)
+    {
         $image = Image::make($imageInput);
-            if($image->width() > $image->height()){
-                $image->widen(1200)
-                    ->save(public_path(). '/img/hotels/' . $hotel_id . "_large.jpg")
-                    ->widen(400)->pixelate(12)
-                    ->save(public_path(). '/img/hotels/' . $hotel_id . "_pixalated.jpg");
-                $image = Image::make($imageInput);
-                $image->widen(60)
-                    ->save(public_path(). '/img/hotels/' . $hotel_id . "_thumb.jpg");
-            } else {
-                $image->heighten(900)
-                    ->save(public_path(). '/img/hotels/' . $hotel_id . "_large.jpg")
-                    ->heighten(400)->pixelate(12)
-                    ->save(public_path(). '/img/hotels/' . $hotel_id . "_pixalated.jpg");
-                $image = Image::make($imageInput);
-                $image->heighten(60)
-                    ->save(public_path(). '/img/hotels/' . $hotel_id . "_thumb.jpg");
-            }
+        if ($image->width() > $image->height()) {
+            $image->widen(1200)
+                ->save(storage_path('app/public/images/' . $hotel_id . "_large.jpg"))
+                ->widen(400)->pixelate(12)
+                ->save(storage_path('app/public/images/' . $hotel_id . "_pixalated.jpg"));
+            $image = Image::make($imageInput);
+            $image->widen(60)
+                ->save(storage_path('app/public/images/' . $hotel_id . "_thumb.jpg"));
+        } else {
+            $image->heighten(900)
+                ->save(storage_path('app/public/images/' . $hotel_id . "_large.jpg"))
+                ->heighten(400)->pixelate(12)
+                ->save(storage_path('app/public/images/' . $hotel_id . "_pixalated.jpg"));
+            $image = Image::make($imageInput);
+            $image->heighten(60)
+                ->save(storage_path('app/public/images/' . $hotel_id . "_thumb.jpg"));
+        }
     }
 }
