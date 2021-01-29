@@ -22,12 +22,10 @@
             {{ $page.props.errors.name }}
           </div>
         </div>
-        <div v-if="hasImage">
-          <img
-            id="edit-image"
-            :src="'/img/hotels/' + hotel.id + '_large.jpg'"
-          />
-        </div>
+        <img
+          id="edit-image"
+          :src="'/storage/images/hotels/' + hotel.id + '_large.jpg'"
+        />
         <div class="form-group">
           <label for="image">Image</label>
           <input
@@ -73,7 +71,6 @@ export default {
   props: ["hotel"],
   data: function () {
     return {
-      hasImage: "",
       editedHotel: {
         name: "",
         description: "",
@@ -115,13 +112,5 @@ export default {
       }
     },
   },
-  beforeMount() {
-    try{
-      let fileName = require('/img/hotels/' + this.hotel.id + '_large.jpg');
-      this.hasImage = true; 
-    } catch(e) {
-      this.hasImage = false;
-    }
-  }
 };
 </script>
