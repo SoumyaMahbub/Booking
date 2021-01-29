@@ -1,6 +1,18 @@
 <template>
     <navbar></navbar>
-    <h1>{{ username }}</h1>
+    <div class="pt-5"></div>
+    <div class="container">
+      <div class="row">
+        <div class="card bg-dark col-12 col-md-3 text-white">
+          <div class="card-header">Most Viewed</div>
+          <div class="card-body">
+            <div v-for="(hotel,index) in $page.props.view" :key="index">
+              <h3>{{hotel.name}}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 <script>
 import Navbar from './Layouts/Navbar.vue';

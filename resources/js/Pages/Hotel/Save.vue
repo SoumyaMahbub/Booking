@@ -22,7 +22,7 @@
             {{ $page.props.errors.name }}
           </div>
         </div>
-        <img
+        <img v-if="hotel && hotel.id"
           id="edit-image"
           :src="'/storage/images/hotels/' + hotel.id + '_large.jpg'"
         />

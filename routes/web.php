@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\RoomTypeController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -15,9 +17,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function() {
-    return Inertia::render('Home');
-})->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home');
 
 Route::get('/about', function () {
     return Inertia::render('About');
@@ -28,3 +28,6 @@ Route::get('/about', function () {
 // })->name('hotels');
 
 Route::resource('hotel', HotelController::class);
+Route::resource('room', RoomTypeController::class);
+Route::get('/hotel/{hotel}/store_room', [RoomTypeController::class, 'store'])->name('store_room');
+Route::get('/hotel/{hotel}/create_room', [RoomTypeController::class, 'create'])->name('create_room');
