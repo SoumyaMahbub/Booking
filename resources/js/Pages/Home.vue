@@ -7,7 +7,7 @@
           <div class="card-header">Most Viewed</div>
           <div class="card-body">
             <div v-for="(hotel,index) in $page.props.view" :key="index">
-              <h3>{{hotel.name}}</h3>
+              <a class="text-white" :href="$route('hotel.show', hotel)"><h3>{{hotel.name}}</h3></a>
             </div>
           </div>
         </div>

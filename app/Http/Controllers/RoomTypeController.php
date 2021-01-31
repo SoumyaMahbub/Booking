@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RoomType;
-use App\Models\Hotel;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class RoomTypeController extends Controller
 {
@@ -24,9 +22,9 @@ class RoomTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Hotel $hotel)
+    public function create()
     {
-        return Inertia::render('Hotel/Room/Save', ['hotel' => $hotel]);
+        //
     }
 
     /**
