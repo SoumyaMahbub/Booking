@@ -27,7 +27,7 @@ class HotelController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Hotel/Save', ['hotel' => null]);
+        return Inertia::render('Hotel/Save');
     }
 
 
@@ -50,7 +50,6 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
@@ -58,10 +57,10 @@ class HotelController extends Controller
         ]);
 
         $hotel = Hotel::create([
+            'user_id' => auth()->id(),
             'name' => $request->name,
             'description' => $request->description
         ]);
-        $hotel->save();
 
         if ($request->image) {
             $this->saveImages($request->image, $hotel->id);

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\Hotel;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
@@ -12,9 +14,10 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($hotel)
     {
-        //
+        $hotel = Hotel::find($hotel);
+        return Inertia::render('Hotel/Room/Index', ['hotel' => $hotel]);
     }
 
     /**
@@ -24,7 +27,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

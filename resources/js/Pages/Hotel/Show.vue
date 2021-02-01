@@ -11,11 +11,6 @@
       <p class="m-0">{{$page.props.hotel.description}}</p>
       <h3 class="m-0"><b>View Count:</b></h3>
       <p class="m-0">{{$page.props.hotel.view_count}}</p>
-      <inertia-link
-        :href="$route('create_room', $page.props.hotel)"
-        class="btn btn-outline-success"
-        ><i class="fas fa-plus-circle align-middle"></i> Create Room</inertia-link
-      >
     </div>
   </div>
 </template>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\RoomType;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class RoomTypeController extends Controller
 {
@@ -22,9 +24,9 @@ class RoomTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($hotel_id)
     {
-        //
+        return Inertia::render('Hotel/RoomType/Save', ['hotel_id' => $hotel_id]);
     }
 
     /**
@@ -33,9 +35,22 @@ class RoomTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($hotel_id, Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255'
+        ]);
+
+        $room_type = RoomType::create([
+            'name' => $request->name,
+            'hotel_id' => $hotel_id
+        ]);
+
+        return redirect()->route('hotel.show', $hotel_id)->with(
+            [
+                'message' => 'A room type was created successfully'
+            ]
+        );
     }
 
     /**

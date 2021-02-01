@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomType extends Model
 {
+    protected $fillable = ['hotel_id','name'];
     use HasFactory;
 }
