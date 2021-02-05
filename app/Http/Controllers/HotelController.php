@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotel;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Intervention\Image\Facades\Image;
@@ -37,8 +38,9 @@ class HotelController extends Controller
      * @param  \App\Models\Hotel  $hotel
      * @return \Illuminate\Http\Response
      */
-    public function edit(Hotel $hotel)
+    public function edit($hotel_id)
     {
+        $hotel = Hotel::with(['room_types', 'bed_types'])->where('id', $hotel_id)->first();
         return Inertia::render('Hotel/Save', ['hotel' => $hotel]);
     }
 

@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomType extends Model
 {
-    protected $fillable = ['hotel_id','name'];
+    protected $guarded = [];
     use HasFactory;
+    
+    public function beds()
+    {
+        return $this->hasMany(Bed::class);
+    }
 }

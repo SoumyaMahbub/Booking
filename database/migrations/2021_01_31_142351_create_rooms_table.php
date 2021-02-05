@@ -16,12 +16,10 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('room_type_id');
-            $table->boolean('has_fan');
-            $table->boolean('has_ac');
-            $table->boolean('has_tv');
+            $table->string('room_number');
             $table->timestamps();
             $table->foreign('room_type_id')
-            ->references('id')->on('room_types');
+                ->references('id')->on('room_types')->onDelete('cascade');
         });
     }
 

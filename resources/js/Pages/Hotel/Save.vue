@@ -13,67 +13,78 @@
         </h1>
 
         <div class="card-body">
-            <form
-                method="POST"
-                @submit.prevent="save"
-                enctype="multipart/form-data"
-            >
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        :class="{ 'is-invalid': $page.props.errors.name }"
-                        id="name"
-                        v-model="editedHotel.name"
+            <div>
+                <form
+                    method="POST"
+                    @submit.prevent="save"
+                    enctype="multipart/form-data"
+                >
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            :class="{ 'is-invalid': $page.props.errors.name }"
+                            id="name"
+                            v-model="editedHotel.name"
+                        />
+                        <div
+                            class="invalid-feedback"
+                            v-if="$page.props.errors.name"
+                        >
+                            {{ $page.props.errors.name }}
+                        </div>
+                    </div>
+                    <img
+                        v-if="hotel && hotel.id"
+                        id="edit-image"
+                        :src="
+                            '/storage/images/hotels/' + hotel.id + '_large.jpg'
+                        "
                     />
-                    <div
-                        class="invalid-feedback"
-                        v-if="$page.props.errors.name"
-                    >
-                        {{ $page.props.errors.name }}
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input
+                            type="file"
+                            class="form-control-file"
+                            :class="{ 'is-invalid': $page.props.errors.image }"
+                            v-on:change="fileChange"
+                            id="image"
+                            name="image"
+                        />
+                        <div
+                            class="invalid-feedback"
+                            v-if="$page.props.errors.image"
+                        >
+                            {{ $page.props.errors.image }}
+                        </div>
                     </div>
-                </div>
-                <img
-                    v-if="hotel && hotel.id"
-                    id="edit-image"
-                    :src="'/storage/images/hotels/' + hotel.id + '_large.jpg'"
-                />
-                <div class="form-group">
-                    <label for="image">Image</label>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea
+                            class="form-control"
+                            :class="{
+                                'is-invalid': $page.props.errors.description,
+                            }"
+                            v-model="editedHotel.description"
+                            id="description"
+                            rows="5"
+                        ></textarea>
+                        <div
+                            class="invalid-feedback"
+                            v-if="$page.props.errors.description"
+                        >
+                            {{ $page.props.errors.description }}
+                        </div>
+                    </div>
                     <input
-                        type="file"
-                        class="form-control-file"
-                        :class="{ 'is-invalid': $page.props.errors.image }"
-                        v-on:change="fileChange"
-                        id="image"
-                        name="image"
+                        type="submit"
+                        class="btn btn-outline-success"
+                        value="Save"
                     />
-                    <div
-                        class="invalid-feedback"
-                        v-if="$page.props.errors.image"
-                    >
-                        {{ $page.props.errors.image }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea
-                        class="form-control"
-                        :class="{
-                            'is-invalid': $page.props.errors.description,
-                        }"
-                        v-model="editedHotel.description"
-                        id="description"
-                        rows="5"
-                    ></textarea>
-                    <div
-                        class="invalid-feedback"
-                        v-if="$page.props.errors.description"
-                    >
-                        {{ $page.props.errors.description }}
-                    </div>
-                </div>
+                </form>
+            </div>
+            <div>
                 <div class="my-2">
                     <inertia-link
                         :href="$route('room_type.create', $page.props.hotel)"
@@ -90,12 +101,43 @@
                         Bed Type</inertia-link
                     >
                 </div>
-                <input
-                    type="submit"
-                    class="btn btn-outline-success float-right"
-                    value="Save"
-                />
-            </form>
+                <h5>All room types:</h5>
+                <ul class="list-group">
+                    <li
+                        class="list-group-item bg-dark border-white d-flex justify-content-between align-items-center"
+                        v-for="room_type in $page.props.hotel.room_types"
+                        :key="room_type.id"
+                    >
+                        <div>
+                            {{ room_type.name }}
+                            <button
+                                class="btn btn-outline-danger"
+                                @click="addRoomForm()"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                        <div>
+                            <inertia-link
+                                class="btn btn-outline-light mx-2"
+                                :href="
+                                    $route('room_type.edit', [
+                                        $page.props.hotel.id,
+                                        room_type.id,
+                                    ])
+                                "
+                                >Edit
+                            </inertia-link>
+                            <button
+                                class="btn btn-outline-danger"
+                                @click="destroy(room_type.id)"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
@@ -143,6 +185,11 @@ export default {
                     preserveScroll: true,
                 });
             }
+        },
+        destroy(room_type_id) {
+            this.$inertia.delete(
+                route("room_type.destroy", [this.hotel.id, room_type_id])
+            );
         },
     },
 };

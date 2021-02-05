@@ -17,10 +17,14 @@ class CreateRoomTypesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('hotel_id');
             $table->string('name');
+            $table->decimal('price');
+            $table->boolean('has_fan');
+            $table->boolean('has_ac');
+            $table->boolean('has_tv');
             $table->timestamps();
             $table->foreign('hotel_id')
-            ->references('id')->on('hotels')
-            ->onDelete('cascade');
+                ->references('id')->on('hotels')
+                ->onDelete('cascade');
         });
     }
 

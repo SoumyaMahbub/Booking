@@ -15,13 +15,13 @@ class CreateBedsTable extends Migration
     {
         Schema::create('beds', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('room_id');
+            $table->unsignedBigInteger('room_type_id');
             $table->unsignedBigInteger('bed_type_id');
             $table->timestamps();
-            $table->foreign('room_id')
-            ->references('id')->on('rooms');
+            $table->foreign('room_type_id')
+                ->references('id')->on('room_types')->onDelete('cascade');
             $table->foreign('bed_type_id')
-            ->references('id')->on('bed_types');
+                ->references('id')->on('bed_types')->onDelete('cascade');
         });
     }
 
